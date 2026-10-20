@@ -1,0 +1,243 @@
+import {StyleSheet} from 'react-native';
+import {color, font} from '../../theme';
+
+const style = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: color.inputBackground,
+  },
+  blur: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    height: '100%',
+    width: '100%',
+    backgroundColor: color.transparentMembership,
+  },
+  premium: {
+    position: 'absolute',
+    top: -2,
+    right: 0,
+  },
+  modalView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  warningContainer: {
+    paddingTop: 20,
+    paddingBottom: 15,
+    width: '73%',
+    paddingHorizontal: 20,
+    backgroundColor: color.white,
+    borderRadius: 15,
+  },
+  buttonTouchable: {
+    width: '100%',
+  },
+  warningText: {
+    fontSize: 14,
+    fontFamily: font.poppinsRegular,
+    color: color.black,
+    lineHeight: 22,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+  },
+  rightIcon: {
+    paddingHorizontal: 18,
+    height: 58,
+    justifyContent: 'center',
+  },
+  rightIconContent: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  appLogo: {
+    height: '100%',
+    width: 108,
+    resizeMode: 'contain',
+  },
+  headerParent: {
+    flexDirection: 'row',
+    paddingLeft: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 60,
+  },
+  container: {
+    paddingHorizontal: 18,
+    marginTop: 28,
+  },
+  profileContainer: {
+    marginBottom: 20,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: color.timeBorder,
+    padding: 15,
+    backgroundColor: color.bottomBackground,
+  },
+  profile: {
+    height: 72,
+    width: 72,
+    borderRadius: 40,
+    alignSelf: 'center',
+  },
+  userProfile: {
+    alignSelf: 'center',
+  },
+  edit: {
+    position: 'absolute',
+    right: 0,
+  },
+  scrollStyle: {
+    flexGrow: 1,
+    paddingBottom: 30,
+  },
+  name: {
+    fontSize: 18,
+    color: color.white,
+    fontFamily: font.poppinsMedium,
+    lineHeight: 27,
+    textAlign: 'center',
+    marginTop: 7,
+  },
+  email: {
+    fontSize: 10,
+    color: color.white,
+    fontFamily: font.poppinsLight,
+    lineHeight: 16,
+    marginTop: 2,
+    textAlign: 'center',
+  },
+  button: {
+    height: 32,
+  },
+  buttonTitle: {
+    fontSize: 10,
+    color: color.white,
+    fontFamily: font.poppinsSemiBold,
+    lineHeight: 16,
+  },
+  flatlist: {
+    paddingTop: 18,
+    flexGrow: 1,
+  },
+  logoutButton: {
+    marginTop: 15,
+    marginHorizontal: 30,
+  },
+  logout: {
+    fontSize: 12,
+    color: color.white,
+    fontFamily: font.poppinsSemiBold,
+    lineHeight: 18,
+  },
+  profileImageContainer: {
+    flexDirection: 'row',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  indicator: {
+    backgroundColor: color.white,
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 1,
+  },
+  indicatorStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '100%',
+    width: '100%',
+  },
+  premiumMemberBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: color.backRoundColor,
+    borderRadius: 30,
+    marginTop: 10,
+    paddingVertical: 2.5,
+    paddingHorizontal: 3,
+  },
+  rewardsBtn: {
+    flexDirection: 'row',
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    alignItems: 'center',
+    backgroundColor: color.backRoundColor,
+    borderRadius: 30,
+    marginTop: 4,
+    alignSelf: 'center',
+    alignContent: 'center',
+  },
+  rewardImage: {
+    height: 20,
+    width: 20,
+    resizeMode: 'contain',
+  },
+  premiumMemberText: {
+    fontSize: 10,
+    lineHeight: 16,
+    fontFamily: font.poppinsRegular,
+    color: color.white,
+    marginLeft: 5,
+    flex: 1,
+  },
+  priceDurationText: {
+    fontSize: 10,
+    color: color.white,
+    fontFamily: font.poppinsSemiBold,
+    marginRight: 3,
+  },
+  rewardsText: {
+    fontSize: 12,
+    color: color.white,
+    fontFamily: font.poppinsSemiBold,
+    marginHorizontal: 3,
+  },
+  durationText: {
+    fontSize: 8,
+    fontFamily: font.poppinsMedium,
+  },
+  exploreText: {
+    paddingVertical: 2,
+    minWidth: 75,
+    paddingHorizontal: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 5,
+    borderRadius: 20,
+    backgroundColor: color.placeholder,
+  },
+  border: {
+    borderWidth: 0.3,
+  },
+  version: {
+    fontSize: 10,
+    color: color.white,
+    fontFamily: font.poppinsRegular,
+  },
+  versionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 15,
+  },
+});
+
+export default style;

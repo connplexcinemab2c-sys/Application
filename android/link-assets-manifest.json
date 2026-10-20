@@ -1,0 +1,49 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/AbhayaLibre-Bold.otf",
+      "sha1": "3d440ae19df666e891d506a089837b483ec31848"
+    },
+    {
+      "path": "assets/fonts/AbhayaLibre-ExtraBold.otf",
+      "sha1": "fa41e38d9156c1fef864dde9e639dbd4e801c98a"
+    },
+    {
+      "path": "assets/fonts/AbhayaLibre-Medium.otf",
+      "sha1": "154c87f934bfd22d67ab599c22ba0fa623cdf0e5"
+    },
+    {
+      "path": "assets/fonts/AbhayaLibre-Regular.otf",
+      "sha1": "d1c27dee8e81c03916f63575c775f45084e17bb1"
+    },
+    {
+      "path": "assets/fonts/AbhayaLibre-SemiBold.otf",
+      "sha1": "f484ad1194e68b39df232420cccd1202fb786b20"
+    },
+    {
+      "path": "assets/fonts/Poppins-Bold.otf",
+      "sha1": "204fa6e4e81109858b89430d6d97d485b8524517"
+    },
+    {
+      "path": "assets/fonts/Poppins-ExtraLight.otf",
+      "sha1": "5c36b8c7009bd9da8798b45712840f73078f596b"
+    },
+    {
+      "path": "assets/fonts/Poppins-Light.otf",
+      "sha1": "02e5fb3d0914f6342b5c922a4da1ec33f8540773"
+    },
+    {
+      "path": "assets/fonts/Poppins-Medium.otf",
+      "sha1": "42fc5a18d99018c413b0b6da1c3e7f8bf898ae0f"
+    },
+    {
+      "path": "assets/fonts/Poppins-Regular.otf",
+      "sha1": "babc23afa76c7c94d41d93c82d1fd547c12ea830"
+    },
+    {
+      "path": "assets/fonts/Poppins-SemiBold.otf",
+      "sha1": "ab5e4731edd71fccc769b4b9678448566f542a79"
+    }
+  ]
+}

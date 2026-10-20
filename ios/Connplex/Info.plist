@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Connplex</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.505953829852-h10bqt3kch0k1p7gmeg0mrnkmvv5fhd1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb866492805044644</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>866492805044644</string>
+	<key>FacebookClientToken</key>
+	<string>87a46e1bfdf7f0d31ad2272a397c7f46</string>
+	<key>FacebookDisplayName</key>
+	<string>Connplex</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>itms-apps</string>
+		<string>tez</string>
+		<string>phonepe</string>
+		<string>paytmmp</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We use photo library to allow you to capature your profile picture from camera.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The purpose of using location information is to allow users from any location to access and book tickets for their preferred cinema</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The purpose of using location information is to allow users from any location to access and book tickets for their preferred cinema</string>
+	<key>NSLocationUsageDescription</key>
+	<string>The purpose of using location information is to allow users from any location to access and book tickets for their preferred cinema</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The purpose of using location information is to allow users from any location to access and book tickets for their preferred cinema</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We use photo library to allow you to select and upload to your profile picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We use photo library to allow you to select and upload to your profile picture</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Bold.otf</string>
+		<string>Poppins-ExtraLight.otf</string>
+		<string>Poppins-Light.otf</string>
+		<string>Poppins-Medium.otf</string>
+		<string>Poppins-Regular.otf</string>
+		<string>Poppins-SemiBold.otf</string>
+		<string>AbhayaLibre-Bold.otf</string>
+		<string>AbhayaLibre-ExtraBold.otf</string>
+		<string>AbhayaLibre-Medium.otf</string>
+		<string>AbhayaLibre-Regular.otf</string>
+		<string>AbhayaLibre-SemiBold.otf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen.storyboard</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>
