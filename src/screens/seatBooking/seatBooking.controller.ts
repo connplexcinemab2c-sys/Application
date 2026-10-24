@@ -149,13 +149,16 @@ const seatBookingController = (): SeatBookingControllerProps => {
   );
 
   useEffect(() => {
-    if (priceData?.length) {
-      const code = priceData?.filter(
-        (item: any) => item?.areaCatCode === strSelectedSeats[0]?.areaCode,
+    if (priceData?.length && strSelectedSeats?.length) {
+      const firstAreaCode = strSelectedSeats[0]?.areaCode;
+      const code = priceData?.find(
+        (item: any) =>
+          item?.areaCatCode === firstAreaCode ||
+          item?.areaCatCode?.toLowerCase() === firstAreaCode?.toLowerCase(),
       );
-      setTTypeCode(code[0]?.tTypeCode);
+      setTTypeCode(code?.tTypeCode ?? priceData[0]?.tTypeCode);
     }
-  }, [selectedSeat]);
+  }, [selectedSeat, priceData, seatLayout]);
 
   const onRefreshCall = () => {
     setRefreshing(true);
@@ -398,19 +401,21 @@ const seatBookingController = (): SeatBookingControllerProps => {
         if (strSelectedSeats?.length < 10) {
           const updatedSeat = [...selectedSeat, ...addedSeats];
           setSelectedSeat(updatedSeat);
-          seatLayout[index].rowData[keys].seatData[
-            addedSeats[0]?.dblSeatXPos - 1
-          ].strSeatStatus = '2';
-          // seatLayout[index].rowData[keys].seatData[
-          //   addedSeats[1]?.dblSeatXPos - 1
-          // ].strSeatStatus = '2';
-          if (seatLayout[index].rowData[keys]?.seatData) {
-            const seatIndex = addedSeats[1]?.dblSeatXPos - 1;
-            if (seatLayout[index].rowData[keys].seatData[seatIndex]) {
-              seatLayout[index].rowData[keys].seatData[
-                seatIndex
-              ].strSeatStatus = '2';
-            }
+          if (
+            addedSeats[0]?.dblSeatXPos &&
+            seatLayout[index]?.rowData?.[keys]?.seatData?.[addedSeats[0]?.dblSeatXPos - 1]
+          ) {
+            seatLayout[index].rowData[keys].seatData[
+              addedSeats[0]?.dblSeatXPos - 1
+            ].strSeatStatus = '2';
+          }
+          if (
+            addedSeats[1]?.dblSeatXPos &&
+            seatLayout[index]?.rowData?.[keys]?.seatData?.[addedSeats[1]?.dblSeatXPos - 1]
+          ) {
+            seatLayout[index].rowData[keys].seatData[
+              addedSeats[1]?.dblSeatXPos - 1
+            ].strSeatStatus = '2';
           }
           setSeatLayout([...seatLayout]);
           setSelectedSeatsCount(updatedSeat?.length);
@@ -436,18 +441,21 @@ const seatBookingController = (): SeatBookingControllerProps => {
         handleChangeArea(index);
         setIsTimeSelected(true);
       } else if (seatStatus === '2') {
-        seatLayout[index].rowData[keys].seatData[
-          addedSeats[0]?.dblSeatXPos - 1
-        ].strSeatStatus = '0';
-        // seatLayout[index].rowData[keys].seatData[
-        //   addedSeats[1]?.dblSeatXPos - 1
-        // ].strSeatStatus = '0';
-        if (seatLayout[index].rowData[keys]?.seatData) {
-          const seatIndex = addedSeats[1]?.dblSeatXPos - 1;
-          if (seatLayout[index].rowData[keys].seatData[seatIndex]) {
-            seatLayout[index].rowData[keys].seatData[seatIndex].strSeatStatus =
-              '0';
-          }
+        if (
+          addedSeats[0]?.dblSeatXPos &&
+          seatLayout[index]?.rowData?.[keys]?.seatData?.[addedSeats[0]?.dblSeatXPos - 1]
+        ) {
+          seatLayout[index].rowData[keys].seatData[
+            addedSeats[0]?.dblSeatXPos - 1
+          ].strSeatStatus = '0';
+        }
+        if (
+          addedSeats[1]?.dblSeatXPos &&
+          seatLayout[index]?.rowData?.[keys]?.seatData?.[addedSeats[1]?.dblSeatXPos - 1]
+        ) {
+          seatLayout[index].rowData[keys].seatData[
+            addedSeats[1]?.dblSeatXPos - 1
+          ].strSeatStatus = '0';
         }
         // tempPrice.pop();
         setSeatLayout([...seatLayout]);
@@ -596,8 +604,9 @@ const seatBookingController = (): SeatBookingControllerProps => {
     }
   };
 
-  const onSetSeats = async (transactionId: string, sessionId: string) => {
+  const onSetSeats = async (transactionId: string, sessionId: string, currentSessionId?: any) => {
     /* API call for reserving seats for session */
+    const effectiveSessionId = currentSessionId || movieSessionId;
     const seatNumbers = `|${strSelectedSeats?.length}${strSelectedSeats
       ?.map(
         detail =>
@@ -608,20 +617,25 @@ const seatBookingController = (): SeatBookingControllerProps => {
     formData.append('cinemaId', cinemaId);
     formData.append('cinemaObjId', cinemaNumberId);
     formData.append('movieObjId', route?.params.movieDetail);
-    formData.append('showObjId', showObjId);
+    formData.append('showObjId', showObjId || showId || '');
     formData.append('strTransId', transactionId);
-    formData.append('lngSessionId', movieSessionId);
+    formData.append('lngSessionId', (effectiveSessionId || '').toString());
     formData.append('strSelectedSeats', seatNumbers);
     try {
       const {data} = await axiosInstance.post(
         constant.setSeats,
         formData.toString(),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
       );
       setLoading(false);
+      setDisable(false);
       refRBSheet?.current?.close();
       if (data?.data) {
         const filterSeats = strSelectedSeats.map(seat => seat?.coupleRowId);
-        const uniqueData = [...new Set(filterSeats)];
         const newData = {
           selectedSeatTime: new Date(),
           id: cinemaNumberId,
@@ -632,7 +646,7 @@ const seatBookingController = (): SeatBookingControllerProps => {
           ticketPrice: strTotalPrice,
           time: selectedTime,
           selectedSeat: filterSeats,
-          movieSessionId: movieSessionId,
+          movieSessionId: effectiveSessionId,
           pGroupCode: pGroupCode,
           areaCatCode: strSelectedSeats[0]?.areaCode,
           flag: flag,
@@ -642,18 +656,35 @@ const seatBookingController = (): SeatBookingControllerProps => {
         };
         setTimeout(() => {
           navigation.navigate('payment', newData);
-        }, 500);
+        }, 300);
+      } else {
+        const errorMsg =
+          data?.message ||
+          'Failed to reserve selected seats. Please try selecting different seats.';
+        Snackbar.show({
+          text: errorMsg,
+          duration: 3000,
+        });
       }
       setLastSeatData(data?.data?.data);
       Log('set seat response', data);
     } catch (error: any) {
       setLoading(false);
       setDisable(false);
+      refRBSheet?.current?.close();
+      const errorMsg =
+        (typeof error?.response?.data?.message === 'string'
+          ? error?.response?.data?.message
+          : null) ??
+        (typeof error?.response?.data?.data === 'string'
+          ? error?.response?.data?.data
+          : null) ??
+        error?.message ??
+        'Something went wrong while confirming seats';
       Snackbar.show({
-        text: 'Something went wrong',
+        text: errorMsg,
         duration: 3000,
       });
-      refRBSheet?.current?.close();
       Log('set seat error', error?.response);
     }
   };
@@ -661,26 +692,93 @@ const seatBookingController = (): SeatBookingControllerProps => {
   const addMovieSeats = async (transactionId: string, sessionId: string) => {
     /* API call for adding seats */
     try {
+      let resolvedTTypeCode = tTypeCode;
+      if (!resolvedTTypeCode && priceData?.length) {
+        const targetAreaCode = strSelectedSeats?.[0]?.areaCode;
+        const matched = priceData?.find(
+          (item: any) =>
+            item?.areaCatCode === targetAreaCode ||
+            item?.areaCatCode?.toLowerCase() === targetAreaCode?.toLowerCase(),
+        );
+        resolvedTTypeCode = matched?.tTypeCode ?? priceData?.[0]?.tTypeCode;
+      }
+
+      if (!resolvedTTypeCode) {
+        setLoading(false);
+        setDisable(false);
+        refRBSheet?.current?.close();
+        Snackbar.show({
+          text: 'Unable to get ticket pricing. Please select your seats again.',
+          duration: 3000,
+        });
+        return;
+      }
+
+      let activeSessionId = movieSessionId;
+      if (!activeSessionId && timingDetails?.length) {
+        const matchedShow =
+          timingDetails.find(
+            (item: any) =>
+              item?.showId === showId ||
+              item?._id === showId ||
+              item?.sessionId === showId ||
+              (selectedTime &&
+                moment(item?.sessionRealShow).isSame(moment(selectedTime))),
+          ) || timingDetails[0];
+        activeSessionId = matchedShow?.sessionId;
+      }
+
       const formData = {
-        [params.id]: `${cinemaId}|${transactionId}|${movieSessionId}|${tTypeCode}|${strSelectedSeats?.length}`,
-        [params.showId]: showId,
+        [params.id]: `${cinemaId}|${transactionId}|${activeSessionId}|${resolvedTTypeCode}|${strSelectedSeats?.length}`,
+        [params.showId]: showId || showObjId,
       };
       const {data} = await axiosInstance.post(constant.addSeats, formData);
-      if (data?.data?.Status === '1') {
+
+      const isSuccess =
+        data?.data?.Status == 1 ||
+        data?.data?.Status === '1' ||
+        data?.data?.Status === 1 ||
+        (data?.status === 200 && data?.data?.data?.strTransId);
+
+      if (isSuccess) {
         setAddSeats(data?.data?.data);
-        onSetSeats(data?.data?.data?.strTransId, sessionId);
+        onSetSeats(
+          data?.data?.data?.strTransId || transactionId,
+          sessionId,
+          activeSessionId,
+        );
       } else {
+        setLoading(false);
+        setDisable(false);
         refRBSheet?.current?.close();
+        const errorMsg =
+          data?.data?.Message ||
+          data?.data?.message ||
+          data?.message ||
+          'Failed to reserve seats. Please try again.';
+        Snackbar.show({
+          text: errorMsg,
+          duration: 3000,
+        });
       }
       Log('add response', data?.data);
     } catch (error: any) {
       setLoading(false);
       setDisable(false);
+      refRBSheet?.current?.close();
+      const errorMessage =
+        (typeof error?.response?.data?.message === 'string'
+          ? error?.response?.data?.message
+          : null) ??
+        (typeof error?.response?.data?.data === 'string'
+          ? error?.response?.data?.data
+          : null) ??
+        error?.message ??
+        'Failed to add seats. Please try again.';
       Snackbar.show({
-        text: error?.response?.data?.message ?? error?.message,
+        text: errorMessage,
         duration: 3000,
       });
-      refRBSheet?.current?.close();
       Log('add error', error?.response?.data);
     }
   };
@@ -715,17 +813,31 @@ const seatBookingController = (): SeatBookingControllerProps => {
         setInitBookingData(data?.data);
         setBookingSessionId(data?.data?.bookingSessionId);
       } else {
+        setLoading(false);
+        setDisable(false);
         refRBSheet?.current?.close();
+        Snackbar.show({
+          text: data?.message || 'Failed to initialize booking. Please try again.',
+          duration: 3000,
+        });
       }
-      setDisable(false);
     } catch (error: any) {
       setLoading(false);
       setDisable(false);
+      refRBSheet?.current?.close();
+      const errorMessage =
+        (typeof error?.response?.data?.message === 'string'
+          ? error?.response?.data?.message
+          : null) ??
+        (typeof error?.response?.data?.data === 'string'
+          ? error?.response?.data?.data
+          : null) ??
+        error?.message ??
+        'Failed to start booking session. Please try again.';
       Snackbar.show({
-        text: error?.response?.data?.message ?? error?.message,
+        text: errorMessage,
         duration: 3000,
       });
-      refRBSheet?.current?.close();
       if (error?.response?.data?.status == 409) {
         navigation.navigate('bottom', {screen: 'homeScreen'});
       }
