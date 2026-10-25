@@ -24,9 +24,9 @@ import {
 import {color} from '../../theme';
 import commonFunctions from '../../utility/functions/commonFunctions/commonFunctions';
 import svg from '../../assets/svgIndex';
-import theatreSeatsController from './ theatreSeats.controller';
-import style from './ theatreSeats.style';
-import {showPriceItem, showTimeItem} from './ theatreSeats.const';
+import theatreSeatsController from './theatreSeats.controller';
+import style from './theatreSeats.style';
+import {showPriceItem, showTimeItem} from './theatreSeats.const';
 import {useRoute} from '@react-navigation/native';
 import moment from 'moment';
 
